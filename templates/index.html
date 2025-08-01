@@ -1,14 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Simple Flask App</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <title>Discount Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
     <div class="container">
-      <h1>Discount Calculator</h1>
+        <h1>Discount Calculator</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/">
+            <label for="name">Name of Item:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="rate">Rate:</label>
+            <input type="number" step="0.01" id="rate" name="rate" required>
+
+            <label for="gst">GST:</label>
+            <input type="number" step="0.01" id="gst" name="gst" required>
+
+            <label for="net_rate">Net Rate:</label>
+            <input type="number" step="0.01" id="net_rate" name="net_rate" required>
+
+            <label for="mrp">MRP:</label>
+            <input type="number" step="0.01" id="mrp" name="mrp" required>
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
-  </body>
+</body>
 </html>
