@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>View DB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-inner">
+        <a class="nav-btn" href="{{ url_for('index') }}">Add Item</a>
+        <a class="nav-btn" href="{{ url_for('view') }}">View DB</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>View Database</h1>
+
+      <form method="get" action="{{ url_for('view') }}" class="search-form">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search by name..."
+          value="{{ search_query }}"
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Rate</th>
+              <th>GST</th>
+              <th>Net Rate</th>
+              <th>MRP</th>
+              <th>Discount NC</th>
+              <th>Discount Gen</th>
+              <th>Discount Deluxe</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ "%.2f"|format(item.rate) }}</td>
+              <td>{{ "%.2f"|format(item.gst) }}</td>
+              <td>{{ "%.2f"|format(item.net_rate) }}</td>
+              <td>{{ "%.2f"|format(item.mrp) }}</td>
+              <td>{{ "%.2f"|format(item.discount_nc) }}</td>
+              <td>{{ "%.2f"|format(item.discount_gen) }}</td>
+              <td>{{ "%.2f"|format(item.discount_deluxe) }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="9" style="text-align: center">No records found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <nav class="navbar">
+    <div class="nav-inner">
+        <a class="nav-btn" href="{{ url_for('index') }}">Add Item</a>
+        <a class="nav-btn" href="{{ url_for('view') }}">View DB</a>
+    </div>
+    </nav>
     <div class="container">
         <h1>Discount Calculator</h1>
 

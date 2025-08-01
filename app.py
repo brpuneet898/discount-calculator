@@ -32,5 +32,14 @@ def index():
         return redirect(url_for("index"))
     return render_template("index.html")
 
+@app.route("/view", methods=["GET"])
+def view():
+    query = request.args.get("q", "").strip()
+    if query:
+        items = Info.query.filter(Info.name.ilike(f"%{query}%")).all()
+    else:
+        items = Info.query.all()
+    return render_template("view.html", items=items, search_query=query)
+
 if __name__ == "__main__":
     app.run(debug=True)
